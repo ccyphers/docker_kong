@@ -1,0 +1,21 @@
+version: '2'
+services:
+  kong:
+    image: ccyphers/kong:latest
+    user: kong
+    entrypoint:
+      - /usr/local/bin/kong
+      - start
+    ports:
+    - "127.0.0.1:8000:8000"
+    - "127.0.0.1:8001:8001"
+    environment:
+    - KONG_PG_HOST=services_postgres_1
+    - KONG_DATABASE=postgres
+    - POSTGRES_USER=kong
+    - POSTGRES_DB=kong
+    - KONG_NGINX_DAEMON=off
+networks:
+  default:
+    external:
+      name: services_net1
